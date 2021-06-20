@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "145371650759",
+    "project_id": "imagegram-ad3e9",
+    "storage_bucket": "imagegram-ad3e9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:145371650759:android:be87e937610edbcd29bce2",
+        "android_client_info": {
+          "package_name": "com.example.imagegram"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "145371650759-ag8uju4u9n3juvinr5f0g2jfg514bd1d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.imagegram",
+            "certificate_hash": "4f042de663e0475358a15a89df180a1cd7949a49"
+          }
+        },
+        {
+          "client_id": "145371650759-g206nsla3oeqa82vg3vfg291refhi2ct.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3sVlP47jyB1v6diaI60bfzjJ_icaDKEQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "145371650759-g206nsla3oeqa82vg3vfg291refhi2ct.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

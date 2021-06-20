@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#A06784</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="darkBrown">#A06784</color>
+    <color name="lightBrown">#C7ABBA</color>
+    <color name="white">#FFFFFF</color>
+    <color name="bgPink">#FBEAEB</color>
+    <color name="bgLightPink">#FCF3F4</color>
+    <color name="bgDarkPink">#FAE7E9</color>
+    <color name="bgLogInPink">#F2CBD0</color>
+
+</resources>

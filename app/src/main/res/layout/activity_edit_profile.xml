@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bgLightPink"
+    android:fillViewport="true"
+    tools:context=".activities.EditProfileActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bgLightPink"
+        android:paddingBottom="20dp"
+        tools:context=".activities.EditProfileActivity">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/toolbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/bgLightPink">
+
+                <!--            <ImageButton-->
+                <!--            android:background="@android:color/transparent"-->
+                <ImageView
+                    android:id="@+id/back_image"
+                    style="@style/toolbar_image"
+                    android:src="@drawable/ic_back"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <TextView
+            android:id="@+id/profile_head"
+            style="@style/toolbar_title"
+            android:text="Edit Profile"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="95dp"
+            android:layout_height="95dp"
+            android:layout_marginTop="32dp"
+            android:src="@raw/lady2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_head" />
+
+        <Button
+            android:id="@+id/edit_profile_image_btn"
+            android:layout_width="95dp"
+            android:layout_height="21dp"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/lato_regular"
+            android:text="Edit"
+            android:textAllCaps="false"
+            android:textColor="@color/lightBrown"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/profile_image" />
+
+        <TextView
+            android:id="@+id/edit_name_label"
+            style="@style/edit_profile_labels"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:labelFor="@id/edit_name_input"
+            android:text="Name:"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edit_profile_image_btn" />
+
+        <EditText
+            android:id="@+id/edit_name_input"
+            style="@style/edit_profile_inputs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:text="Daddaria"
+            app:layout_constraintTop_toBottomOf="@id/edit_name_label" />
+
+        <TextView
+            android:id="@+id/edit_username_label"
+            style="@style/edit_profile_labels"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:labelFor="@id/edit_username_input"
+            android:text="Username:"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edit_name_input" />
+
+        <EditText
+            android:id="@+id/edit_username_input"
+            style="@style/edit_profile_inputs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:text="\@da.daria"
+            app:layout_constraintTop_toBottomOf="@id/edit_username_label" />
+
+        <TextView
+            android:id="@+id/edit_email_label"
+            style="@style/edit_profile_labels"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:labelFor="@id/edit_username_input"
+            android:text="Email:"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edit_username_input" />
+
+        <EditText
+            android:id="@+id/edit_email_input"
+            style="@style/edit_profile_inputs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:text="daddaria\@mail.com"
+            app:layout_constraintTop_toBottomOf="@id/edit_email_label" />
+
+        <Button
+            style="@style/colorful_button"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/button_bg"
+            android:stateListAnimator="@null"
+            android:text="Save"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edit_email_input" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
