@@ -64,24 +64,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/signup_email_label" />
 
-            <TextView
-                android:id="@+id/signup_password_label"
-                style="@style/login_label"
-                android:labelFor="@id/signup_password_input"
-                android:text="Password"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/signup_email_input" />
-
-            <EditText
-                android:id="@+id/signup_password_input"
-                style="@style/login_input"
-                android:background="@drawable/input_bg"
-                android:hint="Password"
-                android:inputType="textPassword"
-                android:paddingHorizontal="30dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/signup_password_label" />
 
             <Button
                 android:id="@+id/signup_next_bt"
@@ -92,7 +74,7 @@
                 android:text="Next"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/signup_password_input" />
+                app:layout_constraintTop_toBottomOf="@id/signup_email_input" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
