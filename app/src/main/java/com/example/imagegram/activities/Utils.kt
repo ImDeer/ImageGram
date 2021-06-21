@@ -4,31 +4,12 @@ import android.app.Activity
 import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
-import com.bumptech.glide.annotation.GlideModule
-import com.bumptech.glide.module.AppGlideModule
 import com.example.imagegram.R
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.storage.StorageReference
-
-class ValueEventListenerAdapter(val handler: (DataSnapshot) -> Unit) : ValueEventListener {
-    private val TAG = "ValueEventListenerAdapt"
-
-    override fun onDataChange(data: DataSnapshot) {
-        handler(data)
-    }
-
-    override fun onCancelled(error: DatabaseError) {
-        Log.e(TAG, "onCancelled: ", error.toException())
-    }
-
-}
+import com.example.imagegram.utils.GlideApp
 
 fun Context.showToast(text: String, duration: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(this, text, duration).show()
@@ -46,10 +27,6 @@ fun Editable.toStringOrNull(): String? {
     return if (str.isEmpty()) null else str
 }
 
-
-
-@GlideModule
-class CustomGlideModule : AppGlideModule()
 
 fun coordinateBtnsAndInputs(btn: Button, vararg inputs: EditText) {
     val watcher = object : TextWatcher {
