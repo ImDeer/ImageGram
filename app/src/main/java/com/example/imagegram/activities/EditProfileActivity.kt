@@ -106,28 +106,22 @@ class EditProfileActivity : AppCompatActivity(), PasswordDialog.Listener {
             // upload to firebase storage
 
             mStorage.uploadUserPhoto(uid, mImageUri) {
-                mStorage.getUrl(uid){
+                mStorage.getUrl(uid) {
 
-                        mDatabase.updateUserPhoto(uid, mPhotoUrl) {
-                            //обновляем наш USERS
-                            mUser = mUser.copy(photo = mPhotoUrl)
-                            profile_image.loadUserPhoto(mUser.photo)
-                        }
+                    mDatabase.updateUserPhoto(uid, mPhotoUrl) {
+                        //обновляем наш USERS
+                        mUser = mUser.copy(photo = mPhotoUrl)
+                        profile_image.loadUserPhoto(mUser.photo)
+                    }
 
                 }
-//                val photoUrl = mStorage.getUrl(uid)
-//                mDatabase.updateUserPhoto(uid, photoUrl) {
-//                    //обновляем наш USERS
-//                    mUser = mUser.copy(photo = photoUrl)
-//                    profile_image.loadUserPhoto(mUser.photo)
-//                }
             }
         }
     }
 
-    private fun StorageReference.getUrl(uid: String, onSuccess: () -> Unit){
+    private fun StorageReference.getUrl(uid: String, onSuccess: () -> Unit) {
         child("users/$uid/photo").downloadUrl.addOnCompleteListener {
-            if(it.isSuccessful){
+            if (it.isSuccessful) {
                 mPhotoUrl = it.result.toString()
                 onSuccess()
             } else {
@@ -135,7 +129,6 @@ class EditProfileActivity : AppCompatActivity(), PasswordDialog.Listener {
             }
         }
     }
-
 
 
     private fun updateProfile() {
