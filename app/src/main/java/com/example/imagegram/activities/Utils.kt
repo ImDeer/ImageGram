@@ -15,6 +15,7 @@ import com.example.imagegram.R
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.storage.StorageReference
 
 class ValueEventListenerAdapter(val handler: (DataSnapshot) -> Unit) : ValueEventListener {
     private val TAG = "ValueEventListenerAdapt"
@@ -44,6 +45,8 @@ fun Editable.toStringOrNull(): String? {
     val str = toString()
     return if (str.isEmpty()) null else str
 }
+
+
 
 @GlideModule
 class CustomGlideModule : AppGlideModule()

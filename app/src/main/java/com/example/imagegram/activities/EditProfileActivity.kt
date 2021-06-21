@@ -22,6 +22,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.UploadTask
 import kotlinx.android.synthetic.main.activity_edit_profile.*
 import java.io.File
 import java.text.SimpleDateFormat
@@ -35,6 +36,7 @@ class EditProfileActivity : AppCompatActivity(), PasswordDialog.Listener {
     private lateinit var mDatabase: DatabaseReference
     private lateinit var mStorage: StorageReference
     private lateinit var mImageUri: Uri
+    private lateinit var mPhotoUrl: String
     private val TAKE_PICTURE_REQUEST_CODE = 1
     val simpleDateFormat = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US)
 
@@ -98,34 +100,43 @@ class EditProfileActivity : AppCompatActivity(), PasswordDialog.Listener {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
+        super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == TAKE_PICTURE_REQUEST_CODE && resultCode == RESULT_OK) {
             val uid = mAuth.currentUser!!.uid
             // upload to firebase storage
-            val ref = mStorage.child("users/$uid/photo")
-            ref.putFile(mImageUri).addOnCompleteListener { it ->
-                if (it.isSuccessful) {
-                    ref.downloadUrl.addOnCompleteListener {
-                        val photoUrl = it.result.toString()
-                        mDatabase.child("users/$uid/photo").setValue(photoUrl)
-                            .addOnCompleteListener {
-                                if (it.isSuccessful) {
-                                    //обновляем наш USERS
-                                    mUser = mUser.copy(photo = photoUrl)
-                                    profile_image.loadUserPhoto(mUser.photo)
-                                } else {
-                                    showToast(it.exception!!.message!!)
-                                }
-                            }
-                    }
 
-                } else {
-                    showToast(it.exception!!.message!!)
+            mStorage.uploadUserPhoto(uid, mImageUri) {
+                mStorage.getUrl(uid){
+
+                        mDatabase.updateUserPhoto(uid, mPhotoUrl) {
+                            //обновляем наш USERS
+                            mUser = mUser.copy(photo = mPhotoUrl)
+                            profile_image.loadUserPhoto(mUser.photo)
+                        }
+
                 }
+//                val photoUrl = mStorage.getUrl(uid)
+//                mDatabase.updateUserPhoto(uid, photoUrl) {
+//                    //обновляем наш USERS
+//                    mUser = mUser.copy(photo = photoUrl)
+//                    profile_image.loadUserPhoto(mUser.photo)
+//                }
             }
-            // save to user.photo
         }
     }
+
+    private fun StorageReference.getUrl(uid: String, onSuccess: () -> Unit){
+        child("users/$uid/photo").downloadUrl.addOnCompleteListener {
+            if(it.isSuccessful){
+                mPhotoUrl = it.result.toString()
+                onSuccess()
+            } else {
+                showToast(it.exception!!.message!!)
+            }
+        }
+    }
+
+
 
     private fun updateProfile() {
         mPendingUser = readInputs()
@@ -217,6 +228,37 @@ class EditProfileActivity : AppCompatActivity(), PasswordDialog.Listener {
             if (it.isSuccessful) { // re-authenticated
                 onSuccess()
             } else { // fail to re-authenticate
+                showToast(it.exception!!.message!!)
+            }
+        }
+    }
+
+    private fun DatabaseReference.updateUserPhoto(
+        uid: String,
+        photoUrl: String,
+        onSuccess: () -> Unit
+    ) {
+        child("users/$uid/photo").setValue(photoUrl)
+            .addOnCompleteListener {
+                if (it.isSuccessful) {
+                    //обновляем наш USERS
+                    onSuccess()
+                } else {
+                    showToast(it.exception!!.message!!)
+                }
+            }
+    }
+
+    private fun StorageReference.uploadUserPhoto(
+        uid: String,
+        photo: Uri,
+        onSuccess: (UploadTask.TaskSnapshot?) -> Unit
+    ) {
+        val ref = child("users/$uid/photo")
+        ref.putFile(photo).addOnCompleteListener { it ->
+            if (it.isSuccessful) {
+                onSuccess(it.result)
+            } else {
                 showToast(it.exception!!.message!!)
             }
         }
