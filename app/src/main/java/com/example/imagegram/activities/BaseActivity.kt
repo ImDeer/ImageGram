@@ -35,6 +35,12 @@ abstract class BaseActivity(val NavItemNum: Int) : AppCompatActivity() {
                 false
             }
         }
-        bottom_navigation_view.menu.getItem(NavItemNum).isChecked = true
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (bottom_navigation_view != null){
+            bottom_navigation_view.menu.getItem(NavItemNum).isChecked = true
+        }
     }
 }

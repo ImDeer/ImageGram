@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".activities.HomeActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -18,8 +19,7 @@
             android:layout_height="wrap_content"
             android:background="@color/bgLightPink">
 
-            <!--            <ImageButton-->
-            <!--            android:background="@android:color/transparent"-->
+
             <ImageView
                 style="@style/toolbar_image"
                 android:src="@drawable/ic_more"
@@ -28,16 +28,15 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <!--            <ImageView-->
-            <!--                android:layout_width="50dp"-->
-            <!--                android:layout_height="50dp"-->
-            <!--                android:padding="12dp"-->
-            <!--                android:src="@drawable/ic_back"-->
-
-            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--                app:layout_constraintLeft_toLeftOf="parent"-->
-            <!--                app:layout_constraintStart_toStartOf="parent"-->
-            <!--                app:layout_constraintTop_toTopOf="parent" />-->
+            <TextView
+                android:id="@+id/profile_head"
+                style="@style/toolbar_title"
+                android:text="Profile"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -46,74 +45,67 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/profile_hat"
         android:layout_width="match_parent"
-        android:layout_height="433dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/profile_hat_bg"
         android:backgroundTint="@color/bgLightPink"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar">
 
-        <TextView
-            android:id="@+id/profile_head"
-            style="@style/toolbar_title"
-            android:text="Profile"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profile_image"
             android:layout_width="95dp"
             android:layout_height="95dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="20dp"
             android:src="@raw/basic_profile_image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_head" />
+            app:layout_constraintTop_toTopOf="@+id/profile_hat" />
 
         <TextView
             android:id="@+id/profile_name"
             android:layout_width="wrap_content"
-            android:layout_height="41dp"
+            android:layout_height="30dp"
             android:layout_marginTop="15dp"
             android:fontFamily="@font/lato_bold"
-            android:gravity="center_horizontal"
-            android:text="Daddaria"
-            android:textAlignment="center"
+            android:gravity="center"
             android:textColor="@color/darkBrown"
             android:textSize="28sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profile_image" />
 
-        <TextView
-            android:id="@+id/profile_username"
-            android:layout_width="wrap_content"
-            android:layout_height="23dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="5dp"
-            android:fontFamily="@font/lato_regular"
-            android:text="\@da.daria"
-            android:textAlignment="center"
-            android:textColor="@color/lightBrown"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_name" />
+<!--        <TextView-->
+<!--            android:id="@+id/profile_username"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="23dp"-->
+<!--            android:layout_gravity="center_horizontal"-->
+<!--            android:layout_marginTop="5dp"-->
+<!--            android:fontFamily="@font/lato_regular"-->
+<!--            android:textAlignment="center"-->
+<!--            android:textColor="@color/lightBrown"-->
+<!--            android:textSize="18sp"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/profile_name" />-->
 
         <Button
             android:id="@+id/edit_profile_btn"
             android:layout_width="95dp"
-            android:layout_height="21dp"
-            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:background="@android:color/transparent"
             android:fontFamily="@font/lato_regular"
             android:text="Edit"
             android:textAllCaps="false"
             android:textColor="@color/lightBrown"
             android:textSize="18sp"
+            android:padding="1dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/profile_username" />
+            app:layout_constraintTop_toBottomOf="@id/profile_name" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/profile_stats"
@@ -123,7 +115,7 @@
             android:background="@drawable/profile_stats_bg"
             android:backgroundTint="@color/bgDarkPink"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/profile_username"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/edit_profile_btn">
 
             <TextView
@@ -177,6 +169,14 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/profile_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation_view"
+        app:layout_constraintTop_toBottomOf="@+id/profile_hat"/>
 
     <include layout="@layout/bottom_navigation_view" />
 

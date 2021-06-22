@@ -5,10 +5,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.TextView
 import com.example.imagegram.R
 import com.example.imagegram.models.User
-import com.example.imagegram.utils.CameraPictureTaker
+import com.example.imagegram.utils.CameraHelper
 import com.example.imagegram.utils.FirebaseHelper
 import com.example.imagegram.utils.ValueEventListenerAdapter
 import com.example.imagegram.views.PasswordDialog
@@ -19,9 +18,8 @@ class EditProfileActivity : AppCompatActivity(), PasswordDialog.Listener {
     private val TAG = "EditProfileActivity"
     private lateinit var mUser: User
     private lateinit var mPendingUser: User
-    private lateinit var mFirebaseHelper: FirebaseHelper
-    private lateinit var mPhotoUrl: String
-    private lateinit var mCameraPictureTaker: CameraPictureTaker
+    private lateinit var mFirebase: FirebaseHelper
+    private lateinit var mCamera: CameraHelper
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,17 +27,17 @@ class EditProfileActivity : AppCompatActivity(), PasswordDialog.Listener {
         setContentView(R.layout.activity_edit_profile)
         Log.d(TAG, "onCreate")
 
-        mCameraPictureTaker =
-            CameraPictureTaker(this)
+        mCamera =
+            CameraHelper(this)
 
         back_image.setOnClickListener { finish() }
         save_bt.setOnClickListener { updateProfile() }
-        edit_profile_image_btn.setOnClickListener { mCameraPictureTaker.takeCameraPicture() }
+        edit_profile_image_btn.setOnClickListener { mCamera.takeCameraPicture() }
 
 
-        mFirebaseHelper = FirebaseHelper(this)
+        mFirebase = FirebaseHelper(this)
 
-        mFirebaseHelper.currentUserReference()
+        mFirebase.currentUserReference()
             .addListenerForSingleValueEvent(ValueEventListenerAdapter {
                 mUser = it.getValue(User::class.java)!!
                 edit_name_input.setText(mUser.name)
@@ -51,13 +49,13 @@ class EditProfileActivity : AppCompatActivity(), PasswordDialog.Listener {
 
     @SuppressLint("MissingSuperCall")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == mCameraPictureTaker.REQUEST_CODE && resultCode == RESULT_OK) {
+        if (requestCode == mCamera.REQUEST_CODE && resultCode == RESULT_OK) {
 
             // upload to firebase storage
-            mFirebaseHelper.uploadUserPhoto(mCameraPictureTaker.imageUri!!) {
-                mFirebaseHelper.getUrl().addOnCompleteListener {
+            mFirebase.uploadUserPhoto(mCamera.imageUri!!) {
+                mFirebase.getUrl().addOnCompleteListener {
                     val photoUrl = it.result.toString()
-                    mFirebaseHelper.updateUserPhoto(photoUrl) {
+                    mFirebase.updateUserPhoto(photoUrl) {
                         //обновляем наш USERS
                         mUser = mUser.copy(photo = photoUrl)
                         profile_image.loadUserPhoto(mUser.photo)
@@ -99,8 +97,8 @@ class EditProfileActivity : AppCompatActivity(), PasswordDialog.Listener {
 
             val credential =
                 EmailAuthProvider.getCredential(mUser.email, password) // get credential
-            mFirebaseHelper.reauthenticate(credential) {//try to re-authentiate
-                mFirebaseHelper.updateEmail(mPendingUser.email) {
+            mFirebase.reauthenticate(credential) {//try to re-authentiate
+                mFirebase.updateEmail(mPendingUser.email) {
                     updateUser(mPendingUser)
                 }
             }
@@ -116,7 +114,7 @@ class EditProfileActivity : AppCompatActivity(), PasswordDialog.Listener {
         if (user.username != mUser.username) updatesMap["username"] = user.username
         if (user.email != mUser.email) updatesMap["email"] = user.email
 
-        mFirebaseHelper.updateUser(updatesMap) {
+        mFirebase.updateUser(updatesMap) {
             showToast("Profile successfully updated")
             finish()
         }

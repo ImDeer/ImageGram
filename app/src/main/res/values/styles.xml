@@ -5,6 +5,7 @@
         <item name="colorPrimary">@color/darkBrown</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="background">@color/white</item>
     </style>
 
     <style name="text">
@@ -40,7 +41,8 @@
     <style name="toolbar_image">
         <item name="android:layout_height">@dimen/toolbar_height</item>
         <item name="android:layout_width">@dimen/toolbar_height</item>
-        <item name="android:padding">12dp</item>
+        <item name="android:padding">10dp</item>
+        <item name="color">@color/darkBrown</item>
     </style>
 
     <style name="toolbar_title">
