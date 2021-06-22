@@ -83,6 +83,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:textColor="@color/darkBrown"
             android:text="willsmith This is a post caption. It is actually a veeeeeeeeeeeery long caption."
             app:layout_constraintBottom_toBottomOf="@id/feed_profile_image"
             app:layout_constraintEnd_toEndOf="@id/feed_item_constrain_layout"

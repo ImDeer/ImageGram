@@ -21,8 +21,9 @@
 
 
             <ImageView
+                android:id="@+id/profile_log_out_bt"
                 style="@style/icon"
-                android:src="@drawable/ic_more"
+                android:src="@drawable/ic_log_out"
 
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -31,7 +32,7 @@
             <TextView
                 android:id="@+id/profile_head"
                 style="@style/toolbar_title"
-                android:text="Profile"
+                android:text=""
                 android:layout_marginStart="50dp"
                 android:layout_marginTop="10dp"
                 app:layout_constraintStart_toStartOf="parent"

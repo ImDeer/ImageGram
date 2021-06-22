@@ -39,7 +39,7 @@ class EditProfileActivity : AppCompatActivity(), PasswordDialog.Listener {
 
         mFirebase.currentUserReference()
             .addListenerForSingleValueEvent(ValueEventListenerAdapter {
-                mUser = it.getValue(User::class.java)!!
+                mUser = it.asUser()!!
                 edit_name_input.setText(mUser.name)
                 edit_username_input.setText(mUser.username)
                 edit_email_input.setText(mUser.email)

@@ -35,9 +35,13 @@ class ProfileActivity : BaseActivity(2) {
             startActivity(intent)
         }
 
+        profile_log_out_bt.setOnClickListener{
+            mFirebase.auth.signOut()
+        }
+
         mFirebase = FirebaseHelper(this)
         mFirebase.currentUserReference().addValueEventListener(ValueEventListenerAdapter {
-            mUser = it.getValue(User::class.java)!!
+            mUser = it.asUser()!!
             profile_image.loadUserPhoto(mUser.photo)
             profile_name.text = mUser.name
             profile_head.text = "@" + mUser.username
@@ -65,10 +69,6 @@ class ImagesAdapter(private val images: List<String>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.image.loadImage(images[position])
-    }
-
-    private fun ImageView.loadImage(image: String) {
-        GlideApp.with(this).load(image).transform(CenterCrop(), RoundedCorners(40)).into(this)
     }
 
     override fun getItemCount(): Int = images.size

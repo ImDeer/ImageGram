@@ -27,8 +27,6 @@
                 android:layout_height="wrap_content"
                 android:background="@color/bgLightPink">
 
-                <!--            <ImageButton-->
-                <!--            android:background="@android:color/transparent"-->
                 <ImageView
                     android:id="@+id/back_image"
                     style="@style/icon"
@@ -40,6 +38,7 @@
                 <TextView
                     android:id="@+id/profile_head"
                     style="@style/toolbar_title"
+                    android:layout_marginStart="10dp"
                     android:text="Edit Profile"
                     app:layout_constraintStart_toEndOf="@id/back_image"
                     app:layout_constraintTop_toTopOf="parent"

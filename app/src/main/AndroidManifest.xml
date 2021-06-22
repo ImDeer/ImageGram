@@ -19,6 +19,7 @@
             android:name=".activities.LoginActivity"
             android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity android:name=".activities.EditProfileActivity" />
+        <activity android:name=".activities.FindUsersActivity"/>
         <activity android:name=".activities.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -5,13 +5,56 @@
     android:layout_height="match_parent"
     android:background="@color/bgLightPink">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/feed_toolbar"
+        style="@style/toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bgLightPink">
+
+
+            <ImageView
+                android:id="@+id/search_bt"
+                style="@style/icon"
+                android:src="@drawable/ic_search"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/feed_toolbar_hello"
+                style="@style/toolbar_title"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:text="Hello, "
+                android:textColor="@color/lightBrown"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/feed_toolbar_username"
+                style="@style/toolbar_title"
+                android:layout_marginStart="0dp"
+                android:gravity="bottom"
+                app:layout_constraintBottom_toBottomOf="@id/feed_toolbar_hello"
+                app:layout_constraintStart_toEndOf="@id/feed_toolbar_hello" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/feed_recycler"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/bottom_navigation_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/bgLightPink"/>
+        android:layout_height="0dp"
+        android:background="@color/bgLightPink"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation_view"
+        app:layout_constraintTop_toBottomOf="@id/feed_toolbar" />
 
     <include layout="@layout/bottom_navigation_view" />
 </androidx.constraintlayout.widget.ConstraintLayout>

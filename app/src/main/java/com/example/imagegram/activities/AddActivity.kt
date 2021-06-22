@@ -38,7 +38,7 @@ class AddActivity : BaseActivity(1) {
         add_bt.setOnClickListener { share() }
 
         mFirebase.currentUserReference().addValueEventListener(ValueEventListenerAdapter {
-            mUser = it.getValue(User::class.java)!!
+            mUser = it.asUser()!!
         })
 
     }
