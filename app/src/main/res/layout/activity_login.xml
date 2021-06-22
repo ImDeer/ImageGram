@@ -40,7 +40,7 @@
                 android:id="@+id/login_title"
                 style="@style/login_title"
                 android:layout_marginTop="54dp"
-                android:text="Log In"
+                android:text="@string/log_in"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/login_info" />
@@ -49,7 +49,7 @@
                 android:id="@+id/email_label"
                 style="@style/login_label"
                 android:labelFor="@id/email_input"
-                android:text="Email"
+                android:text="@string/email"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/login_title" />
 
@@ -57,7 +57,7 @@
                 android:id="@+id/email_input"
                 style="@style/login_input"
                 android:background="@drawable/input_bg"
-                android:hint="example\@mail.com"
+                android:hint="@string/example_mail_com"
                 android:inputType="textEmailAddress"
                 android:paddingHorizontal="30dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -68,7 +68,7 @@
                 android:id="@+id/password_label"
                 style="@style/login_label"
                 android:labelFor="@id/email_input"
-                android:text="Password"
+                android:text="@string/password"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/email_input" />
 
@@ -76,7 +76,7 @@
                 android:id="@+id/password_input"
                 style="@style/login_input"
                 android:background="@drawable/input_bg"
-                android:hint="Password"
+                android:hint="@string/password"
                 android:inputType="textPassword"
                 android:paddingHorizontal="30dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -89,7 +89,7 @@
                 android:layout_marginTop="34dp"
                 android:background="@drawable/button_bg"
                 android:stateListAnimator="@null"
-                android:text="Get Started"
+                android:text="@string/get_started"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/password_input" />

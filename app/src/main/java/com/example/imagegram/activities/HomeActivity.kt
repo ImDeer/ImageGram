@@ -15,25 +15,23 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.imagegram.R
-import com.example.imagegram.models.User
+import com.example.imagegram.models.FeedPost
 import com.example.imagegram.utils.FirebaseHelper
-import com.example.imagegram.utils.GlideApp
 import com.example.imagegram.utils.ValueEventListenerAdapter
-import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.android.synthetic.main.activity_home.view.*
 import kotlinx.android.synthetic.main.feed_item.view.*
 
-class HomeActivity : BaseActivity(0) {
+class HomeActivity : BaseActivity(0), FeedAdapter.Listener {
     private val TAG = "HomeActivity"
     private lateinit var mFirebase: FirebaseHelper
+    private lateinit var mAdapter: FeedAdapter
+    private var mLikesListeners: Map<String, ValueEventListener> = emptyMap()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
@@ -49,7 +47,7 @@ class HomeActivity : BaseActivity(0) {
             }
         }
 
-        search_bt.setOnClickListener{
+        search_bt.setOnClickListener {
             val intent = Intent(this, FindUsersActivity::class.java)
             this.startActivity(intent)
             Log.e(TAG, "run StartActivity for FindUsersActivity")
@@ -72,46 +70,103 @@ class HomeActivity : BaseActivity(0) {
 
             mFirebase.database.child("feed-posts").child(currentUser.uid)
                 .addValueEventListener(ValueEventListenerAdapter {
-                    val posts = it.children.map { it.getValue(FeedPost::class.java)!! }
+                    val posts = it.children.map { it.asFeedPost()!! }
                         .sortedByDescending { it.timestampDate() }
-                    feed_recycler.adapter = FeedAdapter(posts)
+                    mAdapter = FeedAdapter(this, posts)
+                    feed_recycler.adapter = mAdapter
                     feed_recycler.layoutManager = LinearLayoutManager(this)
                 })
 
         }
     }
+
+    override fun toggleLike(postId: String) {
+        Log.d(TAG, "toggleLike: $postId")
+        val reference =
+            mFirebase.database.child("likes").child(postId).child(mFirebase.currentUid()!!)
+        reference.addListenerForSingleValueEvent(ValueEventListenerAdapter {
+            reference.setValueTrueOrRemove(!it.exists())
+        })
+    }
+
+    override fun loadLikes(postId: String, position: Int) {
+        fun createListener() =
+            mFirebase.database.child("likes").child(postId)
+                .addValueEventListener(ValueEventListenerAdapter {
+                    val userLikes = it.children.map { it.key }.toSet()
+                    val postLikes = FeedPostLikes(
+                        userLikes.size,
+                        userLikes.contains(mFirebase.currentUid())
+                    )
+
+                    mAdapter.updatePostLikes(position, postLikes)
+                })
+
+        val createNewListener = mLikesListeners[postId] == null
+        Log.d(TAG, "loadLikes: $position $createNewListener")
+        if (mLikesListeners[postId] == null) {
+            mLikesListeners += (postId to createListener())
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mLikesListeners.values.forEach { mFirebase.database.removeEventListener(it) }
+    }
 }
 
-class FeedAdapter(private val posts: List<FeedPost>) :
+data class FeedPostLikes(val likesCount: Int, val likedByUser: Boolean)
+
+class FeedAdapter(private val listener: Listener, private val posts: List<FeedPost>) :
     RecyclerView.Adapter<FeedAdapter.ViewHolder>() {
 
+    interface Listener {
+        fun toggleLike(postId: String)
+        fun loadLikes(postId: String, position: Int)
+    }
+
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view)
+
+    private var postLikes: Map<Int, FeedPostLikes> = emptyMap()
+
+    private val defaultPostLikes = FeedPostLikes(0, false)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.feed_item, parent, false)
         return ViewHolder(view)
     }
 
+    fun updatePostLikes(position: Int, likes: FeedPostLikes) {
+        postLikes += (position to likes)
+        notifyItemChanged(position)
+    }
+
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val post = posts[position]
+        val likes = postLikes[position] ?: defaultPostLikes
 
         with(holder.view) {
             feed_profile_image.loadUserPhoto(post.photo)
-            if (post.likesCount == 0) {
+            if (likes.likesCount == 0) {
                 feed_likes_text.visibility = View.GONE
             } else {
                 feed_likes_text.visibility = View.VISIBLE
-                if (post.likesCount == 1) {
-                    feed_likes_text.text = "${post.likesCount} like"
-                } else {
-                    feed_likes_text.text = "${post.likesCount} likes"
-                }
+                val likesCountText = holder.view.context.resources.getQuantityString(
+                    R.plurals.likes_count,
+                    likes.likesCount
+                )
+                feed_likes_text.text =
+                    likes.likesCount.toString() + " " + likesCountText
 
             }
             feed_caption_text.setCaptionText(post.username, post.caption)
             feed_post_image.loadImage(post.image)
 
+            feed_like_image.setOnClickListener { listener.toggleLike(post.id) }
+            feed_like_image.setImageResource(if (likes.likedByUser) R.drawable.ic_like_active else R.drawable.ic_like_border)
+
+            listener.loadLikes(post.id, position)
         }
     }
 
@@ -125,7 +180,7 @@ class FeedAdapter(private val posts: List<FeedPost>) :
         )
         usernameSpannable.setSpan(object : ClickableSpan() {
             override fun onClick(widget: View) {
-                widget.context.showToast("username ${username} is clicked")
+                widget.context.showToast(context.getString(R.string.username_is_clicked))
             }
 
             override fun updateDrawState(ds: TextPaint) {}

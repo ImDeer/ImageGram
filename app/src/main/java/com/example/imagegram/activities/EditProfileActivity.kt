@@ -103,7 +103,7 @@ class EditProfileActivity : AppCompatActivity(), PasswordDialog.Listener {
                 }
             }
         } else {
-            showToast("You should enter your password")
+            showToast(getString(R.string.pls_enter_your_password))
         }
 
     }
@@ -115,15 +115,15 @@ class EditProfileActivity : AppCompatActivity(), PasswordDialog.Listener {
         if (user.email != mUser.email) updatesMap["email"] = user.email
 
         mFirebase.updateUser(updatesMap) {
-            showToast("Profile successfully updated")
+            showToast(getString(R.string.profile_successfully_updated))
             finish()
         }
     }
 
     private fun validate(user: User): String? =
         when {
-            user.username.isEmpty() -> "Please enter username"
-            user.email.isEmpty() -> "Please enter email"
+            user.username.isEmpty() -> getString(R.string.please_enter_username)
+            user.email.isEmpty() -> getString(R.string.please_enter_email)
             else -> null
         }
 }

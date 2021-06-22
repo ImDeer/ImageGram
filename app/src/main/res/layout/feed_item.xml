@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_margin="20dp"
     android:background="@drawable/feed_post_bg">
 
@@ -63,7 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="12dp"
             android:fontFamily="@font/lato_bold"
-            android:text="123 likes"
+            tools:text="123 likes"
             android:textColor="@color/darkBrown"
             app:layout_constraintBottom_toBottomOf="@id/feed_like_image"
             app:layout_constraintEnd_toEndOf="parent"
@@ -84,7 +85,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:textColor="@color/darkBrown"
-            android:text="willsmith This is a post caption. It is actually a veeeeeeeeeeeery long caption."
+            tools:text="willsmith This is a post caption. It is actually a veeeeeeeeeeeery long caption."
             app:layout_constraintBottom_toBottomOf="@id/feed_profile_image"
             app:layout_constraintEnd_toEndOf="@id/feed_item_constrain_layout"
             app:layout_constraintStart_toEndOf="@id/feed_profile_image"

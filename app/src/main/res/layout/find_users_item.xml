@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:paddingHorizontal="10dp"
     android:layout_marginVertical="5dp">
 
@@ -34,7 +35,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/lightBrown"
         android:fontFamily="@font/lato_regular"
-        android:text="Dmitry"
+        tools:text="Dmitry"
         app:layout_constraintStart_toStartOf="@id/user_item_username"
         app:layout_constraintTop_toBottomOf="@id/user_item_username" />
 
@@ -45,7 +46,7 @@
         android:id="@+id/user_item_follow_bt"
         style="@style/small_button"
         android:background="@drawable/button_bg"
-        android:text="Follow"
+        android:text="@string/follow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/user_item_image"
         app:layout_constraintBottom_toBottomOf="@id/user_item_image" />
@@ -53,7 +54,7 @@
     <Button
         android:id="@+id/user_item_unfollow_bt"
         style="@style/white_small_button"
-        android:text="Unfollow"
+        android:text="@string/unfollow"
         android:background="@drawable/white_bt_bg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/user_item_image"

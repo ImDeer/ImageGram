@@ -3,4 +3,45 @@
     <string name="create_account">Don\'t have an account? <b>Sign Up</b></string>
     <string name="account_exists">Already have an account? <b>Log In</b></string>
     <string name="please_enter_pass">Please enter your password</string>
+    <string name="create_post">Create post</string>
+    <string name="caption">Caption</string>
+    <string name="share">Share</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="edit">Edit</string>
+    <string name="name">Name</string>
+    <string name="username">Username</string>
+    <string name="email">Email</string>
+    <string name="save">Save</string>
+    <string name="discover_profiles">Discover profiles</string>
+    <string name="hello">Hello,</string>
+    <string name="log_in">Log In</string>
+    <string name="example_mail_com">example@mail.com</string>
+    <string name="password">Password</string>
+    <string name="get_started">Get Started</string>
+    <string name="photos">Photos</string>
+    <string name="followers">Followers</string>
+    <string name="follows">Follows</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="follow">Follow</string>
+    <string name="unfollow">Unfollow</string>
+    <string name="next">Next</string>
+    <string name="welcome">Welcome!</string>
+    <string name="finish">Finish</string>
+    <string name="pls_enter_your_password">You should enter your password</string>
+    <string name="profile_successfully_updated">Profile successfully updated</string>
+    <string name="please_enter_username">Please enter username</string>
+    <string name="please_enter_email">Please enter email</string>
+    <string name="username_is_clicked">username is clicked</string>
+    <string name="pls_enter_email_password">Please enter Email and Password!</string>
+    <string name="at_username">\@%1$s</string>
+    <string name="this_email_already_exists">This email already exists</string>
+    <string name="pls_enter_email">Please enter your email</string>
+    <string name="pls_enter_username_pass">Please enter username and password</string>
+    <string name="smth_wrong_happened_pls_try_again">Something went wrong. Please try again later</string>
+
+
+    <plurals name="likes_count">
+        <item quantity="one">like</item>
+        <item quantity="other">likes</item>
+    </plurals>
 </resources>

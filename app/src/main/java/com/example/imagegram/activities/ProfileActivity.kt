@@ -44,12 +44,12 @@ class ProfileActivity : BaseActivity(2) {
             mUser = it.asUser()!!
             profile_image.loadUserPhoto(mUser.photo)
             profile_name.text = mUser.name
-            profile_head.text = "@" + mUser.username
+            profile_head.text = getString(R.string.at_username, mUser.username)
         })
 
         profile_recycler_view.layoutManager = GridLayoutManager(this, 2)
         // RecyclerView structure: RecyclerView, LayoutManager, Adapter(ViewHolder for performance optimizations)
-        mFirebase.database.child("images").child(mFirebase.auth.currentUser!!.uid)
+        mFirebase.database.child("images").child(mFirebase.currentUid()!!)
             .addValueEventListener(ValueEventListenerAdapter {
                 val images = it.children.map { it.getValue(String::class.java)!! }
                 profile_recycler_view.adapter = ImagesAdapter(images+images+images)

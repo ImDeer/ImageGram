@@ -51,11 +51,11 @@ class RegisterActivity : AppCompatActivity(), EmailFragment.Listener, UsernameFr
                         .addToBackStack(null) //если нажать кнопку назад чтобы вернулся предыдущий фрагмент, налл - потому что не нужно нам имя
                         .commit()
                 } else {
-                    showToast("This email already exists")
+                    showToast(getString(R.string.this_email_already_exists))
                 }
             }
         } else {
-            showToast("Please enter Email and Password!")
+            showToast(getString(R.string.pls_enter_email))
 
         }
     }
@@ -63,7 +63,7 @@ class RegisterActivity : AppCompatActivity(), EmailFragment.Listener, UsernameFr
 
     override fun onRegister(username: String, pass: String) {
 
-        if (username.isNotEmpty()) {
+        if (username.isNotEmpty() && pass.isNotEmpty()) {
             val email = mEmail
             if (email != null) { // проверили email
                 mAuth.createUserWithEmailAndPassword(
@@ -76,19 +76,19 @@ class RegisterActivity : AppCompatActivity(), EmailFragment.Listener, UsernameFr
                     }
                 }
             } else {
-                Log.e(TAG, "onRegister: email or password is null")
-                showToast("Please enter Email and Password")
+                Log.e(TAG, "onRegister: email is null")
+                showToast(getString(R.string.pls_enter_email))
                 supportFragmentManager.popBackStack()
             }
         } else {
-            showToast("Please enter Username!")
+            showToast(getString(R.string.pls_enter_username_pass))
         }
     }
 
 
     private fun unknownRegisterError(it: Task<out Any>) {
         Log.e(TAG, "failed to create profile: ", it.exception)
-        showToast("Something went wrong. Please try again later")
+        showToast(getString(R.string.smth_wrong_happened_pls_try_again))
     }
 
     private fun startHomeActivity() {

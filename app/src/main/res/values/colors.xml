@@ -10,5 +10,7 @@
     <color name="bgLightPink">#FCF3F4</color>
     <color name="bgDarkPink">#FAE7E9</color>
     <color name="bgLogInPink">#F2CBD0</color>
+    <color name="red">#ff00</color>
+
 
 </resources>

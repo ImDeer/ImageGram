@@ -18,7 +18,7 @@ class FirebaseHelper(private val activity: Activity) {
     val storage: StorageReference = FirebaseStorage.getInstance().reference
 
     fun updateUser(updatesMap: Map<String, Any?>, onSuccess: () -> Unit) {
-        database.child("users").child(auth.currentUser!!.uid).updateChildren(updatesMap)
+        database.child("users").child(currentUid()!!).updateChildren(updatesMap)
             .addOnCompleteListener {
                 if (it.isSuccessful) {
                     onSuccess()
@@ -54,7 +54,7 @@ class FirebaseHelper(private val activity: Activity) {
         photoUrl: String,
         onSuccess: () -> Unit
     ) {
-        database.child("users/${auth.currentUser!!.uid}/photo").setValue(photoUrl)
+        database.child("users/${currentUid()!!}/photo").setValue(photoUrl)
             .addOnCompleteListener {
                 if (it.isSuccessful) {
                     //обновляем наш USERS
@@ -65,13 +65,13 @@ class FirebaseHelper(private val activity: Activity) {
             }
     }
 
-    fun getUrl() = storage.child("users/${auth.currentUser!!.uid}/photo").downloadUrl
+    fun getUrl() = storage.child("users/${currentUid()!!}/photo").downloadUrl
 
     fun uploadUserPhoto(
         photo: Uri,
         onSuccess: (UploadTask.TaskSnapshot?) -> Unit
     ) {
-        val ref = storage.child("users/${auth.currentUser!!.uid}/photo")
+        val ref = storage.child("users/${currentUid()!!}/photo")
         ref.putFile(photo).addOnCompleteListener {
             if (it.isSuccessful) {
                 onSuccess(it.result)
@@ -81,11 +81,8 @@ class FirebaseHelper(private val activity: Activity) {
         }
     }
 
-    fun currentUserReference(): DatabaseReference =
-        database.child("users").child(auth.currentUser!!.uid)
-
     fun uploadSharePhoto(localPhotoUrl: Uri, onSuccess: (UploadTask.TaskSnapshot) -> Unit) =
-        storage.child("users/${auth.currentUser!!.uid}").child("images")
+        storage.child("users/${currentUid()!!}").child("images")
             .child(localPhotoUrl.lastPathSegment!!)
             .putFile(localPhotoUrl)
             .addOnCompleteListener {
@@ -96,7 +93,7 @@ class FirebaseHelper(private val activity: Activity) {
             }
 
     fun addSharePhoto(globalPhotoUrl: String, onSuccess: () -> Unit) =
-        database.child("images").child(auth.currentUser!!.uid)
+        database.child("images").child(currentUid()!!)
             .push().setValue(globalPhotoUrl)
             .addOnComplete { onSuccess() }
 
@@ -108,5 +105,10 @@ class FirebaseHelper(private val activity: Activity) {
                 activity.showToast(it.exception!!.message!!)
         }
     }
+
+    fun currentUserReference(): DatabaseReference =
+        database.child("users").child(currentUid()!!)
+
+    fun currentUid(): String? = auth.currentUser?.uid
 
 }

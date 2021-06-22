@@ -14,8 +14,6 @@ import com.example.imagegram.utils.FirebaseHelper
 import com.example.imagegram.utils.TaskSourceOnCompleteListener
 import com.example.imagegram.utils.ValueEventListenerAdapter
 import com.google.android.gms.tasks.Tasks
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseReference
 import kotlinx.android.synthetic.main.activity_find_users.*
 import kotlinx.android.synthetic.main.find_users_item.view.*
 
@@ -36,7 +34,7 @@ class FindUsersActivity : AppCompatActivity(), UsersAdapter.Listener {
         mFirebase = FirebaseHelper(this)
         mAdapter = UsersAdapter(this)
 
-        val uid = mFirebase.auth.currentUser!!.uid
+        val uid = mFirebase.currentUid()!!
 
         find_users_back_image.setOnClickListener { finish() }
 
@@ -69,17 +67,12 @@ class FindUsersActivity : AppCompatActivity(), UsersAdapter.Listener {
     }
 
     private fun setFollow(uid: String, follow: Boolean, onSuccess: () -> Unit) {
-
-        fun DatabaseReference.setValueTrueOrBoolean(value: Boolean) =
-            if (value) setValue(true) else removeValue()
-
-
         val followsTask =
             mFirebase.database.child("users").child(mUser.uid).child("follows")
-                .child(uid).setValueTrueOrBoolean(follow)
+                .child(uid).setValueTrueOrRemove(follow)
 
         val followersTask = mFirebase.database.child("users").child(uid).child("followers")
-            .child(mUser.uid).setValueTrueOrBoolean(follow)
+            .child(mUser.uid).setValueTrueOrRemove(follow)
 
 
         val feedPostsTask = task<Void> { taskSource ->

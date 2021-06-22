@@ -13,11 +13,13 @@ import android.widget.Toast
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.imagegram.R
+import com.example.imagegram.models.FeedPost
 import com.example.imagegram.models.User
 import com.example.imagegram.utils.GlideApp
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.TaskCompletionSource
 import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseReference
 
 fun Context.showToast(text: String, duration: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(this, text, duration).show()
@@ -72,4 +74,10 @@ fun <T> task(block: (TaskCompletionSource<T>) -> Unit): Task<T> {
     return taskSource.task
 }
 
+fun DatabaseReference.setValueTrueOrRemove(value: Boolean) =
+    if (value) setValue(true) else removeValue()
+
 fun DataSnapshot.asUser(): User? = getValue(User::class.java)?.copy(uid = key!!)
+fun DataSnapshot.asFeedPost(): FeedPost? = getValue(FeedPost::class.java)?.copy(id=key!!)
+
+

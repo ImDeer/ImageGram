@@ -27,7 +27,7 @@
             <TextView
                 android:id="@+id/find_users_head"
                 style="@style/toolbar_title"
-                android:text="Discover profiles"
+                android:text="@string/discover_profiles"
                 android:layout_marginStart="10dp"
                 app:layout_constraintStart_toEndOf="@id/find_users_back_image"
                 app:layout_constraintTop_toTopOf="@id/find_users_back_image"

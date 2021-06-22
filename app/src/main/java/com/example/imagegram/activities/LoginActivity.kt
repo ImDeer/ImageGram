@@ -57,7 +57,7 @@ class LoginActivity : AppCompatActivity(), KeyboardVisibilityEventListener, View
                         }
                     }
                 } else {
-                    showToast("Please enter Email and Password!")
+                    showToast(getString(R.string.pls_enter_email_password))
                 }
             }
             R.id.signup_hint -> {
