@@ -85,7 +85,7 @@ class AddActivity : BaseActivity(1) {
         return FeedPost(
             uid = uid,
             username = mUser.username,
-            image = imageDownloadUrl.toString(),
+            image = imageDownloadUrl.result.toString(),
             caption = add_caption_input.text.toString(),
             photo = mUser.photo
         )
