@@ -4,6 +4,8 @@
 
     <uses-feature android:name="android.hardware.camera"
         android:required="true" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
 
     <application
         android:allowBackup="true"
@@ -18,8 +20,8 @@
         <activity
             android:name=".activities.LoginActivity"
             android:windowSoftInputMode="stateVisible|adjustResize" />
-        <activity android:name=".activities.EditProfileActivity" />
-        <activity android:name=".activities.FindUsersActivity"/>
+        <activity android:name=".activities.editprofile.EditProfileActivity" />
+        <activity android:name=".activities.findusers.FindUsersActivity"/>
         <activity android:name=".activities.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

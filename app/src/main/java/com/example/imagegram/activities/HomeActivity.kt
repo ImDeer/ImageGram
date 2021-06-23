@@ -19,6 +19,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.imagegram.R
+import com.example.imagegram.activities.findusers.FindUsersActivity
 import com.example.imagegram.models.FeedPost
 import com.example.imagegram.utils.FirebaseHelper
 import com.example.imagegram.utils.ValueEventListenerAdapter

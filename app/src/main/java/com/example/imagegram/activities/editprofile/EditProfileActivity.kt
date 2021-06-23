@@ -1,24 +1,26 @@
-package com.example.imagegram.activities
+package com.example.imagegram.activities.editprofile
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.imagegram.R
+import com.example.imagegram.activities.ViewModelFactory
+import com.example.imagegram.activities.loadUserPhoto
+import com.example.imagegram.activities.showToast
+import com.example.imagegram.activities.toStringOrNull
 import com.example.imagegram.models.User
 import com.example.imagegram.utils.CameraHelper
-import com.example.imagegram.utils.FirebaseHelper
-import com.example.imagegram.utils.ValueEventListenerAdapter
 import com.example.imagegram.views.PasswordDialog
-import com.google.firebase.auth.EmailAuthProvider
 import kotlinx.android.synthetic.main.activity_edit_profile.*
 
 class EditProfileActivity : AppCompatActivity(), PasswordDialog.Listener {
-    private val TAG = "EditProfileActivity"
+    private lateinit var mViewModel: EditProfileViewModel
     private lateinit var mUser: User
     private lateinit var mPendingUser: User
-    private lateinit var mFirebase: FirebaseHelper
     private lateinit var mCamera: CameraHelper
 
 
@@ -35,33 +37,26 @@ class EditProfileActivity : AppCompatActivity(), PasswordDialog.Listener {
         edit_profile_image_btn.setOnClickListener { mCamera.takeCameraPicture() }
 
 
-        mFirebase = FirebaseHelper(this)
+        mViewModel =
+            ViewModelProvider(this, ViewModelFactory()).get(EditProfileViewModel::class.java)
 
-        mFirebase.currentUserReference()
-            .addListenerForSingleValueEvent(ValueEventListenerAdapter {
-                mUser = it.asUser()!!
+        mViewModel.user.observe(this, Observer {
+            it?.let {
+                mUser = it
                 edit_name_input.setText(mUser.name)
                 edit_username_input.setText(mUser.username)
                 edit_email_input.setText(mUser.email)
                 profile_image.loadUserPhoto(mUser.photo)
-            })
+
+            }
+        })
     }
 
     @SuppressLint("MissingSuperCall")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == mCamera.REQUEST_CODE && resultCode == RESULT_OK) {
-
-            // upload to firebase storage
-            mFirebase.uploadUserPhoto(mCamera.imageUri!!) {
-                mFirebase.getUrl().addOnCompleteListener {
-                    val photoUrl = it.result.toString()
-                    mFirebase.updateUserPhoto(photoUrl) {
-                        //обновляем наш USERS
-                        mUser = mUser.copy(photo = photoUrl)
-                        profile_image.loadUserPhoto(mUser.photo)
-                    }
-
-                }
+            mViewModel.uploadAndSetUserPhoto(mCamera.imageUri!!).addOnFailureListener {
+                showToast(it.message)
             }
         }
     }
@@ -94,14 +89,13 @@ class EditProfileActivity : AppCompatActivity(), PasswordDialog.Listener {
 
     override fun onPasswordConfirm(password: String) {
         if (password.isNotEmpty()) {
-
-            val credential =
-                EmailAuthProvider.getCredential(mUser.email, password) // get credential
-            mFirebase.reauthenticate(credential) {//try to re-authentiate
-                mFirebase.updateEmail(mPendingUser.email) {
-                    updateUser(mPendingUser)
-                }
-            }
+            mViewModel.updateEmail(
+                currentEmail = mUser.email,
+                newEmail = mPendingUser.email,
+                password = password
+            )
+                .addOnSuccessListener { updateUser(mPendingUser) }
+                .addOnFailureListener { showToast(it.message) }
         } else {
             showToast(getString(R.string.pls_enter_your_password))
         }
@@ -109,15 +103,12 @@ class EditProfileActivity : AppCompatActivity(), PasswordDialog.Listener {
     }
 
     private fun updateUser(user: User) {
-        val updatesMap = mutableMapOf<String, Any?>()
-        if (user.name != mUser.name) updatesMap["name"] = user.name
-        if (user.username != mUser.username) updatesMap["username"] = user.username
-        if (user.email != mUser.email) updatesMap["email"] = user.email
-
-        mFirebase.updateUser(updatesMap) {
-            showToast(getString(R.string.profile_successfully_updated))
-            finish()
-        }
+        mViewModel.updateUserProfile(currentUser = mUser, newUser = user)
+            .addOnFailureListener { showToast(it.message) }
+            .addOnSuccessListener {
+                showToast(getString(R.string.profile_successfully_updated))
+                finish()
+            }
     }
 
     private fun validate(user: User): String? =
@@ -126,5 +117,9 @@ class EditProfileActivity : AppCompatActivity(), PasswordDialog.Listener {
             user.email.isEmpty() -> getString(R.string.please_enter_email)
             else -> null
         }
+
+    companion object {
+        const val TAG = "EditProfileActivity"
+    }
 }
 

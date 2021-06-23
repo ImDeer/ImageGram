@@ -1,13 +1,20 @@
 package com.example.imagegram.activities
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
+import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.imagegram.R
 import kotlinx.android.synthetic.main.bottom_navigation_view.*
 
 abstract class BaseActivity(val NavItemNum: Int) : AppCompatActivity() {
-    private val TAG = "BaseActivity"
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+    }
+
     fun setupBottomNavigation() {
         bottom_navigation_view.setIconSize(30f, 30f)
         bottom_navigation_view.enableAnimation(false)
@@ -39,8 +46,12 @@ abstract class BaseActivity(val NavItemNum: Int) : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        if (bottom_navigation_view != null){
+        if (bottom_navigation_view != null) {
             bottom_navigation_view.menu.getItem(NavItemNum).isChecked = true
         }
+    }
+
+    companion object {
+        const val TAG = "EditProfileABaseActivityctivity"
     }
 }

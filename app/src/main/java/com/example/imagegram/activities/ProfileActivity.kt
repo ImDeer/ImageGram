@@ -10,12 +10,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.imagegram.R
+import com.example.imagegram.activities.editprofile.EditProfileActivity
 import com.example.imagegram.models.User
 import com.example.imagegram.utils.FirebaseHelper
-import com.example.imagegram.utils.GlideApp
 import com.example.imagegram.utils.ValueEventListenerAdapter
 import kotlinx.android.synthetic.main.activity_profile.*
 
@@ -35,7 +33,7 @@ class ProfileActivity : BaseActivity(2) {
             startActivity(intent)
         }
 
-        profile_log_out_bt.setOnClickListener{
+        profile_log_out_bt.setOnClickListener {
             mFirebase.auth.signOut()
         }
 
@@ -52,7 +50,7 @@ class ProfileActivity : BaseActivity(2) {
         mFirebase.database.child("images").child(mFirebase.currentUid()!!)
             .addValueEventListener(ValueEventListenerAdapter {
                 val images = it.children.map { it.getValue(String::class.java)!! }
-                profile_recycler_view.adapter = ImagesAdapter(images+images+images)
+                profile_recycler_view.adapter = ImagesAdapter(images + images + images)
             })
     }
 }

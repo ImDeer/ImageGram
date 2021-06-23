@@ -10,6 +10,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.imagegram.R
@@ -21,8 +23,8 @@ import com.google.android.gms.tasks.TaskCompletionSource
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseReference
 
-fun Context.showToast(text: String, duration: Int = Toast.LENGTH_SHORT) {
-    Toast.makeText(this, text, duration).show()
+fun Context.showToast(text: String?, duration: Int = Toast.LENGTH_SHORT) {
+    text?.let { Toast.makeText(this, it, duration).show() }
 
 }
 
@@ -78,6 +80,8 @@ fun DatabaseReference.setValueTrueOrRemove(value: Boolean) =
     if (value) setValue(true) else removeValue()
 
 fun DataSnapshot.asUser(): User? = getValue(User::class.java)?.copy(uid = key!!)
-fun DataSnapshot.asFeedPost(): FeedPost? = getValue(FeedPost::class.java)?.copy(id=key!!)
+fun DataSnapshot.asFeedPost(): FeedPost? = getValue(FeedPost::class.java)?.copy(id = key!!)
 
+fun <A, B> LiveData<A>.map(f: (A) -> (B)): LiveData<B> =
+    Transformations.map(this, f)
 
