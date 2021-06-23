@@ -4,7 +4,6 @@ import android.app.Activity
 import android.net.Uri
 import com.example.imagegram.activities.showToast
 import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase

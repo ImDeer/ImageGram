@@ -2,7 +2,6 @@ package com.example.imagegram.activities.editprofile
 
 import android.net.Uri
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.imagegram.models.User
 import com.google.android.gms.tasks.Task

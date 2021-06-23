@@ -5,7 +5,10 @@ import com.example.imagegram.activities.asUser
 import com.example.imagegram.activities.map
 import com.example.imagegram.activities.task
 import com.example.imagegram.models.User
-import com.example.imagegram.utils.*
+import com.example.imagegram.utils.TaskSourceOnCompleteListener
+import com.example.imagegram.utils.ValueEventListenerAdapter
+import com.example.imagegram.utils.database
+import com.example.imagegram.utils.liveData
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.Tasks
 import com.google.firebase.auth.FirebaseAuth

@@ -1,16 +1,11 @@
 package com.example.imagegram.activities.findusers
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.example.imagegram.activities.map
-import com.example.imagegram.activities.task
 import com.example.imagegram.models.User
-import com.example.imagegram.utils.TaskSourceOnCompleteListener
-import com.example.imagegram.utils.ValueEventListenerAdapter
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.Tasks
-import com.google.firebase.auth.FirebaseAuth
 
 class FindUsersViewModel(private val repository: FindUsersRepository) : ViewModel() {
 
