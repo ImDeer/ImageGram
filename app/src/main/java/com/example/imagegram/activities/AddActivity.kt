@@ -17,7 +17,7 @@ import com.example.imagegram.utils.ValueEventListenerAdapter
 import com.google.android.gms.tasks.Task
 import kotlinx.android.synthetic.main.activity_add.*
 
-class AddActivity : BaseActivity(1) {
+class AddActivity : BaseActivity() {
     private val TAG = "AddActivity"
     private lateinit var mCamera: CameraHelper
     private lateinit var mFirebase: FirebaseHelper

@@ -8,16 +8,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.imagegram.R
-import com.example.imagegram.activities.ViewModelFactory
-import com.example.imagegram.activities.loadUserPhoto
-import com.example.imagegram.activities.showToast
-import com.example.imagegram.activities.toStringOrNull
+import com.example.imagegram.activities.*
 import com.example.imagegram.models.User
 import com.example.imagegram.utils.CameraHelper
 import com.example.imagegram.views.PasswordDialog
 import kotlinx.android.synthetic.main.activity_edit_profile.*
 
-class EditProfileActivity : AppCompatActivity(), PasswordDialog.Listener {
+class EditProfileActivity : BaseActivity(), PasswordDialog.Listener {
     private lateinit var mViewModel: EditProfileViewModel
     private lateinit var mUser: User
     private lateinit var mPendingUser: User
@@ -37,8 +34,8 @@ class EditProfileActivity : AppCompatActivity(), PasswordDialog.Listener {
         edit_profile_image_btn.setOnClickListener { mCamera.takeCameraPicture() }
 
 
-        mViewModel =
-            ViewModelProvider(this, ViewModelFactory()).get(EditProfileViewModel::class.java)
+        mViewModel = initViewModel()
+//            ViewModelProvider(this, ViewModelFactory()).get(EditProfileViewModel::class.java)
 
         mViewModel.user.observe(this, Observer {
             it?.let {
@@ -55,9 +52,7 @@ class EditProfileActivity : AppCompatActivity(), PasswordDialog.Listener {
     @SuppressLint("MissingSuperCall")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == mCamera.REQUEST_CODE && resultCode == RESULT_OK) {
-            mViewModel.uploadAndSetUserPhoto(mCamera.imageUri!!).addOnFailureListener {
-                showToast(it.message)
-            }
+            mViewModel.uploadAndSetUserPhoto(mCamera.imageUri!!)
         }
     }
 
@@ -95,7 +90,6 @@ class EditProfileActivity : AppCompatActivity(), PasswordDialog.Listener {
                 password = password
             )
                 .addOnSuccessListener { updateUser(mPendingUser) }
-                .addOnFailureListener { showToast(it.message) }
         } else {
             showToast(getString(R.string.pls_enter_your_password))
         }
@@ -104,7 +98,6 @@ class EditProfileActivity : AppCompatActivity(), PasswordDialog.Listener {
 
     private fun updateUser(user: User) {
         mViewModel.updateUserProfile(currentUser = mUser, newUser = user)
-            .addOnFailureListener { showToast(it.message) }
             .addOnSuccessListener {
                 showToast(getString(R.string.profile_successfully_updated))
                 finish()

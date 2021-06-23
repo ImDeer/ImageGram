@@ -15,9 +15,10 @@ import com.example.imagegram.activities.editprofile.EditProfileActivity
 import com.example.imagegram.models.User
 import com.example.imagegram.utils.FirebaseHelper
 import com.example.imagegram.utils.ValueEventListenerAdapter
+import com.example.imagegram.views.setupBottomNavigation
 import kotlinx.android.synthetic.main.activity_profile.*
 
-class ProfileActivity : BaseActivity(2) {
+class ProfileActivity : BaseActivity() {
     private val TAG = "ProfileActivity"
     private lateinit var mFirebase: FirebaseHelper
     private lateinit var mUser: User
@@ -26,7 +27,7 @@ class ProfileActivity : BaseActivity(2) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
         Log.d(TAG, "onCreate")
-        setupBottomNavigation()
+        setupBottomNavigation(2)
 
         edit_profile_btn.setOnClickListener {
             val intent = Intent(this, EditProfileActivity::class.java)

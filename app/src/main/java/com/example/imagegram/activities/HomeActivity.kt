@@ -23,11 +23,12 @@ import com.example.imagegram.activities.findusers.FindUsersActivity
 import com.example.imagegram.models.FeedPost
 import com.example.imagegram.utils.FirebaseHelper
 import com.example.imagegram.utils.ValueEventListenerAdapter
+import com.example.imagegram.views.setupBottomNavigation
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.feed_item.view.*
 
-class HomeActivity : BaseActivity(0), FeedAdapter.Listener {
+class HomeActivity : BaseActivity(), FeedAdapter.Listener {
     private val TAG = "HomeActivity"
     private lateinit var mFirebase: FirebaseHelper
     private lateinit var mAdapter: FeedAdapter
@@ -37,7 +38,7 @@ class HomeActivity : BaseActivity(0), FeedAdapter.Listener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         Log.d(TAG, "onCreate")
-        setupBottomNavigation()
+        setupBottomNavigation(0)
 
         mFirebase = FirebaseHelper(this)
 

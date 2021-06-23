@@ -6,13 +6,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.imagegram.R
+import com.example.imagegram.activities.BaseActivity
 import com.example.imagegram.activities.ViewModelFactory
 import com.example.imagegram.activities.showToast
 import com.example.imagegram.models.User
 import kotlinx.android.synthetic.main.activity_find_users.*
 
 //@Suppress("DEPRECATION")
-class FindUsersActivity : AppCompatActivity(),
+class FindUsersActivity : BaseActivity(),
     UsersAdapter.Listener {
 
     private lateinit var mUser: User
@@ -27,11 +28,7 @@ class FindUsersActivity : AppCompatActivity(),
 
         mAdapter = UsersAdapter(this)
 
-        mViewModel = ViewModelProvider(
-            this,
-            ViewModelFactory()
-        )
-            .get(FindUsersViewModel::class.java)
+        mViewModel = initViewModel()
 
         find_users_back_image.setOnClickListener { finish() }
 
@@ -66,7 +63,6 @@ class FindUsersActivity : AppCompatActivity(),
     private fun setFollow(uid: String, follow: Boolean, onSuccess: () -> Unit) {
         mViewModel.setFollow(mUser.uid, uid, follow)
             .addOnSuccessListener { onSuccess() }
-            .addOnFailureListener { showToast(it.message) }
     }
 
     companion object {
