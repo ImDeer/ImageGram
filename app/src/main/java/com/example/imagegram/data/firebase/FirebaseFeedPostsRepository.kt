@@ -1,11 +1,11 @@
 package com.example.imagegram.data.firebase
 
-import com.example.imagegram.utils.toUnit
-import com.example.imagegram.activities.task
+import com.example.imagegram.common.TaskSourceOnCompleteListener
+import com.example.imagegram.common.ValueEventListenerAdapter
+import com.example.imagegram.common.task
+import com.example.imagegram.common.toUnit
 import com.example.imagegram.data.FeedPostsRepository
-import com.example.imagegram.utils.TaskSourceOnCompleteListener
-import com.example.imagegram.utils.ValueEventListenerAdapter
-import com.example.imagegram.utils.database
+import com.example.imagegram.data.firebase.common.database
 import com.google.android.gms.tasks.Task
 
 class FirebaseFeedPostsRepository :

@@ -41,7 +41,7 @@
 
 
     <plurals name="likes_count">
-        <item quantity="one">like</item>
-        <item quantity="other">likes</item>
+        <item quantity="one">%d like</item>
+        <item quantity="other">%d likes</item>
     </plurals>
 </resources>

@@ -15,22 +15,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activities.RegisterActivity"
+            android:name=".screens.RegisterActivity"
             android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity
-            android:name=".activities.LoginActivity"
+            android:name=".screens.LoginActivity"
             android:windowSoftInputMode="stateVisible|adjustResize" />
-        <activity android:name=".activities.editprofile.EditProfileActivity" />
-        <activity android:name=".activities.findusers.FindUsersActivity"/>
-        <activity android:name=".activities.HomeActivity">
+        <activity android:name=".screens.editprofile.EditProfileActivity" />
+        <activity android:name=".screens.findusers.FindUsersActivity"/>
+        <activity android:name=".screens.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.AddActivity" />
-        <activity android:name=".activities.ProfileActivity" />
+        <activity android:name=".screens.AddActivity" />
+        <activity android:name=".screens.ProfileActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

@@ -1,15 +1,15 @@
 package com.example.imagegram.data.firebase
 
+//import androidx.lifecycle.map
+//import com.example.imagegram.activities.map
 import android.net.Uri
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.map
-import com.example.imagegram.activities.asUser
-import com.example.imagegram.utils.toUnit
-//import com.example.imagegram.activities.map
-import com.example.imagegram.activities.task
+import com.example.imagegram.common.task
+import com.example.imagegram.common.toUnit
 import com.example.imagegram.data.UsersRepository
+import com.example.imagegram.data.common.map
+import com.example.imagegram.data.firebase.common.*
 import com.example.imagegram.models.User
-import com.example.imagegram.utils.*
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.Tasks
 import com.google.firebase.auth.EmailAuthProvider

@@ -6,14 +6,14 @@
     android:layout_height="match_parent"
     android:background="@color/bgLightPink"
     android:fillViewport="true"
-    tools:context=".activities.editprofile.EditProfileActivity">
+    tools:context=".screens.editprofile.EditProfileActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/bgLightPink"
         android:paddingBottom="20dp"
-        tools:context=".activities.editprofile.EditProfileActivity">
+        tools:context=".screens.editprofile.EditProfileActivity">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"

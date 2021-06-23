@@ -1,7 +1,5 @@
 package com.example.imagegram.data
 
-import androidx.lifecycle.LiveData
-import com.example.imagegram.models.User
 import com.google.android.gms.tasks.Task
 
 interface FeedPostsRepository {
