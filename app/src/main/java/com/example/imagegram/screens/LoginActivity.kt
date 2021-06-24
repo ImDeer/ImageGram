@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.imagegram.R
 import com.example.imagegram.screens.common.coordinateBtnsAndInputs
 import com.example.imagegram.screens.common.showToast
+import com.example.imagegram.screens.home.HomeActivity
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent

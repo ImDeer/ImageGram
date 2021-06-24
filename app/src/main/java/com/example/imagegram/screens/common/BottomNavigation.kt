@@ -8,7 +8,7 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import com.example.imagegram.R
 import com.example.imagegram.screens.AddActivity
-import com.example.imagegram.screens.HomeActivity
+import com.example.imagegram.screens.home.HomeActivity
 import com.example.imagegram.screens.ProfileActivity
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
 import kotlinx.android.synthetic.main.bottom_navigation_view.*
@@ -57,9 +57,10 @@ class BottomNavigation(
 }
 
 fun BaseActivity.setupBottomNavigation(navNumber: Int) {
-    BottomNavigation(
+    val bnv = BottomNavigation(
         bottom_navigation_view,
         navNumber,
         this
     )
+    this.lifecycle.addObserver(bnv)
 }

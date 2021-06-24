@@ -6,6 +6,7 @@ import com.example.imagegram.data.firebase.FirebaseFeedPostsRepository
 import com.example.imagegram.data.firebase.FirebaseUsersRepository
 import com.example.imagegram.screens.editprofile.EditProfileViewModel
 import com.example.imagegram.screens.findusers.FindUsersViewModel
+import com.example.imagegram.screens.home.HomeViewModel
 import com.google.android.gms.tasks.OnFailureListener
 
 @Suppress("UNCHECKED_CAST")
@@ -15,6 +16,8 @@ class ViewModelFactory (private val onFailureListener: OnFailureListener): ViewM
             return FindUsersViewModel(onFailureListener, FirebaseUsersRepository(), FirebaseFeedPostsRepository()) as T
         } else if (modelClass.isAssignableFrom(EditProfileViewModel::class.java)) {
             return EditProfileViewModel(onFailureListener, FirebaseUsersRepository()) as T
+        } else if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
+            return HomeViewModel(onFailureListener, FirebaseFeedPostsRepository()) as T
         } else {
             error("unknown ViewModel class $modelClass")
         }

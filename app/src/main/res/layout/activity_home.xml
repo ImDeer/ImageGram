@@ -26,26 +26,18 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/feed_toolbar_hello"
-                style="@style/toolbar_title"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:text="@string/hello"
-                android:textColor="@color/lightBrown"
-                android:textSize="18sp"
+            <ImageView
+                android:id="@+id/imagegram_logo"
+                android:src="@raw/imagegram_logo"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:padding="5dp"/>
 
-            <TextView
-                android:id="@+id/feed_toolbar_username"
-                style="@style/toolbar_title"
-                tools:text="\@da.daria"
-                android:layout_marginStart="0dp"
-                android:gravity="bottom"
-                app:layout_constraintBottom_toBottomOf="@id/feed_toolbar_hello"
-                app:layout_constraintStart_toEndOf="@id/feed_toolbar_hello" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.appcompat.widget.Toolbar>

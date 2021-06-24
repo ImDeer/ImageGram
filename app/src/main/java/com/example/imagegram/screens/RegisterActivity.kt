@@ -13,6 +13,7 @@ import com.example.imagegram.R
 import com.example.imagegram.models.User
 import com.example.imagegram.screens.common.coordinateBtnsAndInputs
 import com.example.imagegram.screens.common.showToast
+import com.example.imagegram.screens.home.HomeActivity
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth

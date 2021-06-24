@@ -1,6 +1,7 @@
 package com.example.imagegram.screens.findusers
 
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.imagegram.R
@@ -22,6 +23,8 @@ class FindUsersActivity : BaseActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_find_users)
 
+        Log.e(TAG, "onCreate")
+
         mAdapter = UsersAdapter(this)
 
         mViewModel = initViewModel()
@@ -37,6 +40,7 @@ class FindUsersActivity : BaseActivity(),
                 mUsers = otherUsers
 
                 mAdapter.update(mUsers, mUser.follows)
+                Log.e(TAG, "userAndFriends")
             }
         })
     }

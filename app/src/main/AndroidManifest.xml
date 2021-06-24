@@ -22,7 +22,7 @@
             android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity android:name=".screens.editprofile.EditProfileActivity" />
         <activity android:name=".screens.findusers.FindUsersActivity"/>
-        <activity android:name=".screens.HomeActivity">
+        <activity android:name=".screens.home.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

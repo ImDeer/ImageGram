@@ -3,9 +3,11 @@ package com.example.imagegram.screens.findusers
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.imagegram.R
 import com.example.imagegram.models.User
+import com.example.imagegram.screens.common.SimpleCallback
 import com.example.imagegram.screens.common.loadUserPhoto
 import kotlinx.android.synthetic.main.find_users_item.view.*
 
@@ -53,10 +55,11 @@ class UsersAdapter(private val listener: Listener) :
     override fun getItemCount(): Int = mUsers.size
 
     fun update(users: List<User>, follows: Map<String, Boolean>) {
+        val diffResult = DiffUtil.calculateDiff(SimpleCallback(mUsers, users, {it.uid}))
         mUsers = users
         mPositions = users.withIndex().map { (idx, user) -> user.uid to idx }.toMap()
         mFollows = follows
-        notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(this)
     }
 
     fun followed(uid: String) {
